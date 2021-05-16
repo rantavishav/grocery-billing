@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import Appold from './Appold'
 import { Provider } from 'react-redux';
 import createStore from './store/store'
 const store = createStore

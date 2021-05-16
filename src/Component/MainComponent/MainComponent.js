@@ -2,7 +2,7 @@ import UserData from '../UserData/UserData'
 import Input from '../Input/Input'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faChevronLeft, faCircle, faCheckCircle, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Invoice from '../Invoice/Invoice'
 
 
@@ -14,11 +14,14 @@ export default function MainComponent(){
     
     const [totalItemCount, setTotalItemCount] = useState(0);
     const [totalPriceCount, setTotalPriceCount] = useState(0);
-
+    useEffect(()=>{
+      calculateTotal();
+    },[items])
 
     const calculateTotal = () => {
+      
       const totalItemCount = items.reduce((total, item) => {
-        return total + item.quantity;
+        return total + Number(item.quantity);
       }, 0);
   
       const totalPriceCount = items.reduce((total, item) => {
@@ -27,11 +30,12 @@ export default function MainComponent(){
 
       setTotalItemCount(totalItemCount);
       setTotalPriceCount(totalPriceCount);
+      
     }
     const handleClick = ()=>{
       if(document.getElementById("item").value !== "" && document.getElementById("price").value !== "" ){
 
-      
+        
         const newItem = {
             sno: items.length,
             itemName: iname,
@@ -43,10 +47,11 @@ export default function MainComponent(){
     const newItems = [...items, newItem];
 
     setItems(newItems);
+    
     document.getElementById("item").value = ""
     document.getElementById("price").value = ""
     document.getElementById("quantity").value = ""
-    calculateTotal();
+
     }
   }
 
@@ -98,11 +103,14 @@ export default function MainComponent(){
                 <Input type="item" toggle={setIname} text={"text"}/>
                 <Input type="price" toggle={setIvalue} text={"number"}/>
                 <Input type="quantity" toggle={setIquantity} text={"number"}/>
+                
                 <FontAwesomeIcon icon={faPlus} onClick={handleClick} />
+                
 
             </div>
             
             <div className='item-list'>
+            
             {items.map((item, index) => (
               <div className='item-container'>
                 <div className='item-name' onClick={() => toggleComplete(index)}>
