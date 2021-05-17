@@ -33,7 +33,7 @@ export default function MainComponent(){
       
     }
     const handleClick = ()=>{
-      if(document.getElementById("item").value !== "" && document.getElementById("price").value !== "" ){
+      if(document.getElementById("item").value !== "" && document.getElementById("price").value !== "" &&document.getElementById("quantity").value !== "" ){
 
         
         const newItem = {
